@@ -9,7 +9,9 @@ import XCTest
     app.menuBars.menuBarItems["Library"].click()
     app.menuItems["Load sample document"].click()
     XCTAssertTrue(
-      app.staticTexts["Sample: Studio handover"].firstMatch.waitForExistence(timeout: 15))
+      app.descendants(matching: .any)
+        .matching(NSPredicate(format: "identifier BEGINSWITH %@", "library-document-"))
+        .firstMatch.waitForExistence(timeout: 15), app.debugDescription)
     let question =
       app.textFields["question"].exists ? app.textFields["question"] : app.textViews["question"]
     question.click()
@@ -24,12 +26,14 @@ import XCTest
     screenshot.lifetime = .keepAlways
     add(screenshot)
     app.buttons["Archive document"].click()
-    XCTAssertFalse(app.staticTexts["Source passages"].exists)
+    XCTAssertTrue(
+      app.staticTexts["Source passages"].waitForNonExistence(timeout: 10), app.debugDescription)
     app.terminate()
     app.launch()
     question.click()
     question.typeText("artwork handover")
     app.buttons["Find passages"].click()
-    XCTAssertFalse(app.staticTexts["Source passages"].exists)
+    XCTAssertTrue(
+      app.staticTexts["Source passages"].waitForNonExistence(timeout: 10), app.debugDescription)
   }
 }

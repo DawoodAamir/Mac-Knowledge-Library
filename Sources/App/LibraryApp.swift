@@ -48,7 +48,7 @@ struct LibraryView: View {
             } icon: {
               Image(systemName: "doc.text")
             }
-          }
+          }.accessibilityIdentifier("library-document-" + doc.id.uuidString)
         }
       }.navigationTitle("Library").searchable(text: $filter, prompt: "Document titles")
         .navigationSplitViewColumnWidth(min: 230, ideal: 270)
