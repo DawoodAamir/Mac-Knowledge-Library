@@ -2,6 +2,9 @@
 
 A native macOS 27 library for imported text PDFs, plain text, and Markdown. Find supporting passages, inspect their page references, and review drafts from Apple's on-device language model.
 
+![Native document search and source review](Docs/Library.png)
+
+
 [![Checks](https://github.com/DawoodAamir/Mac-Knowledge-Library/actions/workflows/ci.yml/badge.svg)](https://github.com/DawoodAamir/Mac-Knowledge-Library/actions/workflows/ci.yml)
 
 ## Workflows
