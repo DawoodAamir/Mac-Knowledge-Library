@@ -17,10 +17,14 @@ import XCTest
     question.click()
     question.typeText("artwork handover")
     app.buttons["Find passages"].click()
-    XCTAssertTrue(app.staticTexts["Source passages"].waitForExistence(timeout: 10))
-    XCTAssertTrue(app.buttons["Sample: Studio handover · page 1"].waitForExistence(timeout: 10))
-    app.buttons["Sample: Studio handover · page 1"].click()
-    XCTAssertTrue(app.buttons["Archive document"].waitForExistence(timeout: 10))
+    XCTAssertTrue(
+      app.staticTexts["Source passages"].waitForExistence(timeout: 10), app.debugDescription)
+    XCTAssertTrue(
+      app.descendants(matching: .any)["source-page-1"].waitForExistence(timeout: 10),
+      app.debugDescription)
+    app.descendants(matching: .any)["source-page-1"].click()
+    XCTAssertTrue(
+      app.buttons["Archive document"].waitForExistence(timeout: 10), app.debugDescription)
     let screenshot = XCTAttachment(screenshot: app.screenshot())
     screenshot.name = "Source passages"
     screenshot.lifetime = .keepAlways

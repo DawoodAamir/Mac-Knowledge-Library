@@ -109,7 +109,8 @@ struct LibraryView: View {
                     Button("\(match.document.title) · page \(match.page.number)") {
                       selection = match.document.id
                       details = true
-                    }.buttonStyle(.link)
+                    }.buttonStyle(.link).accessibilityIdentifier(
+                      "source-page-" + String(match.page.number))
                     Text(match.excerpt).textSelection(.enabled).frame(
                       maxWidth: .infinity, alignment: .leading)
                   }.padding(4)
