@@ -1,0 +1,30 @@
+name: Checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  native:
+    runs-on: xcode-27
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - name: Core tests
+        run: swift test && swift test -c release
+      - name: Release build
+        run: xcodebuild -project 'Mac Knowledge Library.xcodeproj' -scheme 'Mac Knowledge Library' -configuration Release -destination 'platform=macOS' -derivedDataPath build/DerivedData build
+      - name: Native workflow
+        run: bash Scripts/test-ui.sh
+      - name: Test evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: native-workflow
+          path: |
+            build/Screenshots
+            build/*.xcresult
+          if-no-files-found: ignore
