@@ -13,6 +13,12 @@ import UniformTypeIdentifiers
   var body: some Scene {
     WindowGroup { LibraryView(model: model).frame(minWidth: 850, minHeight: 580) }
       .defaultSize(width: 1120, height: 760)
+      .commands {
+        CommandMenu("Library") {
+          Button("Load sample document") { Task { await model.sample() } }
+            .keyboardShortcut("d", modifiers: [.command, .shift])
+        }
+      }
   }
 }
 struct LibraryView: View {

@@ -6,7 +6,7 @@ import XCTest
     let app = XCUIApplication()
     app.launchEnvironment["LIBRARY_TEST_STORE"] = UUID().uuidString
     app.launch()
-    app.buttons["Library options"].click()
+    app.menuBars.menuBarItems["Library"].click()
     app.menuItems["Load sample document"].click()
     XCTAssertTrue(
       app.staticTexts["Sample: Studio handover"].firstMatch.waitForExistence(timeout: 15))
